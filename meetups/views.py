@@ -6,12 +6,28 @@ from django.http import HttpResponse
 
 def index(request):
     meetups = [
-        {'title': 'A First Meetup'},
-        {'title': 'A Second Meetup'},
-        {'title': 'A Third Meetup'},
-        {'title': 'A Fourth Meetup'}
+        {
+        'title': 'A First Meetup',
+         'location': "Paris", 
+         'slug': 'a-first-meetup' 
+        },
+        {
+        'title': 'A Second Meetup', 
+        'location': "Brazil", 
+        'slug': 'a-second-meetup'
+        },
+        {
+        'title': 'A Third Meetup', 
+        'location': "Italia", 
+        'slug': 'a-third-meetup' 
+        },
+        {
+        'title': 'A Fourth Meetup', 
+        'location': "Unganda", 
+        'slug': 'a-fourth-meetup' 
+        }
     ]
     return render(request, 'meetups/index.html', {
-        'show_meetups': False,
+        'show_meetups': True,
         'meetups': meetups
     })
