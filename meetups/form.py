@@ -2,7 +2,7 @@ from django import forms
 
 from .models import Participant
 
-class RegistationForm(forms.ModelForm):
+class RegistrationForm(forms.ModelForm):
 		
 	class Meta:
 		model = Participant
