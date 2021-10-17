@@ -29,13 +29,12 @@
 
 ## Completed features:
 + In the admin page it is possible to create meetups. 
-+ It's possible to vizualise the image upload in each meetup.
-+ It was created a database to store, Meetups, Participants and Locations.
-+ It's possible to view more details abou a meetup, see the organizer's email and subscribe a new participant at the meetup by passing the participant's email.
++ It's possible to vizualise the image uploaded in each meetup.
++ It was created a database to store Meetups, Participants and Locations.
++ It's possible to view more details about a meetup, see the organizer's email and subscribe a new participant at the meetup by passing the participant's email.
 
 ## Features in developing:
 + Make a CRUD to the meetups.
-
 
 ## Technologies used:
 <table>
