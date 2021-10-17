@@ -41,11 +41,15 @@
   <tr>
     <td>Django</td>
     <td>Python</td>
+    <td>HTML</td>
+    <td>CSS</td>
   </tr>
   
   <tr>
     <td>3.2.8</td>
     <td>3.9.7</td>
+    <td>5</td>
+    <td>3</td>
   </tr>
 </table>
 
