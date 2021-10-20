@@ -3,13 +3,35 @@ from django.http import HttpResponse
 
 
 from .models import Meetup, Participant
-from .form import RegistrationForm
+from .form import RegistrationForm, MeetupForm
 # Create your views here.
 
 
 def index(request):
     meetups = Meetup.objects.all()
+    print("antes do try")
+    try:
+        if request.method == 'GET':
+            print("Fez um GET")
+            registration_form = MeetupForm()
+        else:
+            print("fez um POST")
+            registration_form = MeetupForm(request.POST)
+            print("Antes da validação")
+            if registration_form.is_valid():
+                print("Era valida")
+                registration_form.save()
+                return render(request,'meetups/creation-success.html')
+            print("Não entrou no except")
+
+    except Exception as exc:
+        return render(request, 'meetups/index.html', {
+            'show_meetups': True,
+            'meetups': meetups
+            })
+
     return render(request, 'meetups/index.html', {
+        'form': registration_form,
         'show_meetups': True,
         'meetups': meetups
     })
@@ -42,3 +64,4 @@ def confirm_registration(request, meetup_slug):
     return render(request,'meetups/registration-success.html', {
         'organizer_email': meetup.organizer_email
         } )
+

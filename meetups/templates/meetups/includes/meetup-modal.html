@@ -1,0 +1,15 @@
+<div id="modal-background" class="modal">
+	<div class="modal-content">
+		<span class="close">&times;</span>	
+		<form action="{% url 'all-meetups' %}" method="POST">
+			{% csrf_token %}
+			<ul>
+				{{ form.as_p }}
+			</ul>
+			<div id="registration-actions">
+				<button>Register</button>
+			</div>
+		</form>
+	</div>
+</div>
+

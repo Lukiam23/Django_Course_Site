@@ -6,6 +6,7 @@
 {% block site_css %}
 
 <link rel="stylesheet" href="{% static 'meetups/styles/all-meetups.css' %}">
+<link rel="stylesheet" href="{% static 'meetups/styles/modal.css' %}">
 
 {% endblock %}
 
@@ -18,12 +19,15 @@
     Find the one the best suits your needs!
 {% endblock %}
 
-
 {% block body %}
 
+
+
+{% include 'meetups/includes/meetup-modal.html' %}
 <section>
     <h2>Upcoming Meetups</h2>
-    <button class="plus-button"></button>
+
+    <button class="plus-button" onclick="showModal()"></button>
     <ol>
         {% for meetup_item in meetups %}
             {% include 'meetups/includes/meetup-item.html' with image=meetup_item.image.url title=meetup_item.title  location='New York' slug=meetup_item.slug%}
@@ -33,4 +37,10 @@
 
 
 {% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'meetups/scripts/script.js' %}"></script>
+{% endblock %}
+
+
 
