@@ -14,9 +14,16 @@ def index(request):
         if request.method == 'GET':
             print("Fez um GET")
             registration_form = MeetupForm()
+            return render(request, 'meetups/index.html', {
+                'form': registration_form,
+                'show_meetups': True,
+                'meetups': meetups
+            })
+
         else:
             print("fez um POST")
             registration_form = MeetupForm(request.POST)
+            print(registration_form)
             print("Antes da validação")
             if registration_form.is_valid():
                 print("Era valida")
@@ -24,17 +31,17 @@ def index(request):
                 return render(request,'meetups/creation-success.html')
             print("Não entrou no except")
 
+        return render(request, 'meetups/index.html', {
+            'form': registration_form,
+            'show_meetups': True,
+            'meetups': meetups
+        })
+
     except Exception as exc:
         return render(request, 'meetups/index.html', {
             'show_meetups': True,
             'meetups': meetups
             })
-
-    return render(request, 'meetups/index.html', {
-        'form': registration_form,
-        'show_meetups': True,
-        'meetups': meetups
-    })
 
 def meetup_details(request, meetup_slug):
     try:

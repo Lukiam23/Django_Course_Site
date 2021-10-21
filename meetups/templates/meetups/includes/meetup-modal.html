@@ -3,12 +3,11 @@
 		<span class="close">&times;</span>	
 		<form action="{% url 'all-meetups' %}" method="POST">
 			{% csrf_token %}
-			<ul>
-				{{ form.as_p }}
-			</ul>
-			<div id="registration-actions">
+			{{ form.as_p }}
+			<!-- <div id="registration-actions">
 				<button>Register</button>
-			</div>
+			</div> -->
+			<input type="submit" value="Registrar">
 		</form>
 	</div>
 </div>
