@@ -28,6 +28,7 @@ def index(request):
                 registration_form.save()
                 return render(request,'meetups/creation-success.html')
             else:
+                print(registration_form.cleaned_data)
                 title = registration_form.cleaned_data['title']
                 slug = registration_form.cleaned_data['slug']
                 organizer_email = registration_form.cleaned_data['organizer_email']
@@ -35,8 +36,16 @@ def index(request):
                 description = registration_form.cleaned_data['description']
                 image = registration_form.cleaned_data['image']
                 location = registration_form.cleaned_data['location']
-                participants = registration_form.cleaned_data['participants']
-                print(f'{title} {slug} {organizer_email} {date} {description} {image} {location} {participants}')
+                participants = registration_form.cleaned_data['title']
+                
+                # print(title)
+                # print(slug)
+                # print(organizer_email)
+                # print(date)
+                # print(description)
+                # #print(image)
+                # print(location)
+                # print(participants)
                 
                 messages.error(request, "Error")
 
