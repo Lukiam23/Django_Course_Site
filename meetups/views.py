@@ -11,7 +11,7 @@ from .form import RegistrationForm, MeetupForm
 def index(request):
     meetups = Meetup.objects.all()
     try:
-        if request.method == 'GET':
+        if request.method == '':
             print("GET")
             registration_form = MeetupForm()
             return render(request, 'meetups/index.html', {
@@ -22,31 +22,13 @@ def index(request):
 
         else:
 
-            registration_form = MeetupForm(request.POST)
+            registration_form = MeetupForm(request.POST,  request.FILES)
 
             if registration_form.is_valid():
                 registration_form.save()
                 return render(request,'meetups/creation-success.html')
             else:
                 print(registration_form.cleaned_data)
-                title = registration_form.cleaned_data['title']
-                slug = registration_form.cleaned_data['slug']
-                organizer_email = registration_form.cleaned_data['organizer_email']
-                date = registration_form.cleaned_data['date']
-                description = registration_form.cleaned_data['description']
-                image = registration_form.cleaned_data['image']
-                location = registration_form.cleaned_data['location']
-                participants = registration_form.cleaned_data['title']
-                
-                # print(title)
-                # print(slug)
-                # print(organizer_email)
-                # print(date)
-                # print(description)
-                # #print(image)
-                # print(location)
-                # print(participants)
-                
                 messages.error(request, "Error")
 
         return render(request, 'meetups/index.html', {
@@ -56,7 +38,7 @@ def index(request):
         })
 
     except Exception as exc:
-        print(exc)
+        print(f'Erro {exc}')
         return render(request, 'meetups/index.html', {
             'show_meetups': True,
             'meetups': meetups

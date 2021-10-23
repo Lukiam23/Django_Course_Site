@@ -21,7 +21,7 @@ class Meetup(models.Model):
 	organizer_email = models.EmailField()
 	date = models.DateField()
 	description = models.TextField()
-	image =  models.ImageField(upload_to='images')
+	image =  models.ImageField(upload_to='images', null=True)
 	location = models.ForeignKey(Location, on_delete=models.CASCADE)
 	participants = models.ManyToManyField(Participant, blank=True)
 
