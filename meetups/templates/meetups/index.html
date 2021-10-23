@@ -30,7 +30,7 @@
     <button class="plus-button" onclick="showModal()"></button>
     <ol>
         {% for meetup_item in meetups %}
-            {% include 'meetups/includes/meetup-item.html' with image=meetup_item.image.url title=meetup_item.title  location='New York' slug=meetup_item.slug%}
+            {% include 'meetups/includes/meetup-item.html' with image=meetup_item.image.url title=meetup_item.title  location=meetup_item.location slug=meetup_item.slug%}
         {% endfor %}
     </ol>
 </section>
