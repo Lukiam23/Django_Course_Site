@@ -11,7 +11,7 @@ from .form import RegistrationForm, MeetupForm
 def index(request):
     meetups = Meetup.objects.all()
     try:
-        if request.method == '':
+        if request.method == 'GET':
             print("GET")
             registration_form = MeetupForm()
             return render(request, 'meetups/index.html', {
@@ -20,7 +20,7 @@ def index(request):
                 'meetups': meetups
             })
 
-        else:
+        elif request.method == 'POST':
 
             registration_form = MeetupForm(request.POST,  request.FILES)
 
@@ -31,6 +31,7 @@ def index(request):
                 print(registration_form.cleaned_data)
                 messages.error(request, "Error")
 
+        print("Passou")
         return render(request, 'meetups/index.html', {
             'form': registration_form,
             'show_meetups': True,
