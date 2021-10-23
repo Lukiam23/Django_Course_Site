@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib import messages
 
 
 from .models import Meetup, Participant
@@ -9,10 +10,9 @@ from .form import RegistrationForm, MeetupForm
 
 def index(request):
     meetups = Meetup.objects.all()
-    print("antes do try")
     try:
         if request.method == 'GET':
-            print("Fez um GET")
+            print("GET")
             registration_form = MeetupForm()
             return render(request, 'meetups/index.html', {
                 'form': registration_form,
@@ -21,15 +21,24 @@ def index(request):
             })
 
         else:
-            print("fez um POST")
+
             registration_form = MeetupForm(request.POST)
-            print(registration_form)
-            print("Antes da validação")
+
             if registration_form.is_valid():
-                print("Era valida")
                 registration_form.save()
                 return render(request,'meetups/creation-success.html')
-            print("Não entrou no except")
+            else:
+                title = registration_form.cleaned_data['title']
+                slug = registration_form.cleaned_data['slug']
+                organizer_email = registration_form.cleaned_data['organizer_email']
+                date = registration_form.cleaned_data['date']
+                description = registration_form.cleaned_data['description']
+                image = registration_form.cleaned_data['image']
+                location = registration_form.cleaned_data['location']
+                participants = registration_form.cleaned_data['participants']
+                print(f'{title} {slug} {organizer_email} {date} {description} {image} {location} {participants}')
+                
+                messages.error(request, "Error")
 
         return render(request, 'meetups/index.html', {
             'form': registration_form,
@@ -38,6 +47,7 @@ def index(request):
         })
 
     except Exception as exc:
+        print(exc)
         return render(request, 'meetups/index.html', {
             'show_meetups': True,
             'meetups': meetups
