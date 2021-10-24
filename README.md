@@ -3,7 +3,8 @@
 > Status: Developing
 
 
-### This repository is dedicated to the study of the Django framework following the <a href="https://www.youtube.com/watch?v=t7DrJqcUviA&list=PLzsAIfynJhXHvyjxUoNNkHyzEMn3vwqw_&index=2">course in this link</a>, it was used the idea to build a web applications where it's possible to list the meetups that a person has and see its description. (<a href="https://django-meetup-heroku.herokuapp.com/meetups/">see the application</a>)
+### This repository is dedicated to the study of the Django framework. The main code is from the course of Django from <a href="https://www.youtube.com/watch?v=t7DrJqcUviA&list=PLzsAIfynJhXHvyjxUoNNkHyzEMn3vwqw_&index=2">Academind</a>, but some features are going to be added, it was used idea to build a web application where it's possible to list the meetups that a person has and see its description.  (<a href="https://django-meetup-heroku.herokuapp.com/meetups/">see the application</a>)
+
 
 ## The models of the project are:
 + Meetup
