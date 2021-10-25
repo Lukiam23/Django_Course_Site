@@ -8,7 +8,7 @@ class RegistrationForm(forms.Form):
 class MeetupForm(forms.ModelForm):
 	class Meta:
 		model = Meetup
-		fields = '__all__'
+		fields = ['title','organizer_email','date','description','image','location','participants']
 		widgets ={
 			'title' : forms.TextInput(attrs={'class':'form-control'}),
 			'slug' : forms.TextInput(attrs={'class':'form-control'}),
@@ -18,5 +18,4 @@ class MeetupForm(forms.ModelForm):
 			'image' : forms.FileInput(attrs={'class':'form-control'}),
 			'location' : forms.Select(attrs={'class':'form-control'}),
 			'participants' : forms.SelectMultiple(attrs={'class':'form-control'}),
-
 		} 
