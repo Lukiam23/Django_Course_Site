@@ -19,7 +19,6 @@ def index(request):
                 registration_form.save()
                 return render(request,'meetups/creation-success.html')
             else:
-                print(registration_form.cleaned_data)
                 messages.error(request, "Error")
 
         registration_form = MeetupForm()
@@ -29,7 +28,6 @@ def index(request):
             'meetups': meetups
         })
 
-        print("Passou")
         return render(request, 'meetups/index.html', {
             'form': registration_form,
             'show_meetups': True,
@@ -49,7 +47,6 @@ def meetup_details(request, meetup_slug):
         if request.method == 'GET':
             registration_form = RegistrationForm()
         else:
-            print("debug check")
             registration_form = RegistrationForm(request.POST)
             if registration_form.is_valid():
                 user_email = registration_form.cleaned_data['email']
@@ -79,21 +76,24 @@ def edit_form(request,meetup_slug):
         meetup = Meetup.objects.get(slug=meetup_slug)
         context['success'] = False
         if request.method == 'GET':
-            form = MeetupUpdate(instance=meetup)
-            context['meetup'] = meetup,
-            context['form'] = form,
+            form = MeetupUpdate(instance=meetup)                                              
+            context['meetup'] = meetup
+            context['form'] = form
             return render(request,'meetups/edit.html', context)
-        elif request.method == 'POST':                                               
-            form = MeetupUpdate(request.POST, request.FILES, instance=meetup)
-            if(form.is_valid()):
+        elif request.method == 'POST': 
+            form = MeetupUpdate(request.POST or None, request.FILES or None, instance=meetup)
+            if form.is_valid():
                 obj = form.save(commit=False)
                 obj.save()
                 context['success'] = True
                 meetup = obj
+            else:
+                print(f'Erro: {form.cleaned_data}')
 
         form = MeetupUpdate(
             initial = {
                 "title" : meetup.title,
+                "slug" : meetup.slug,
                 "description" : meetup.description,
                 "organizer_email" : meetup.organizer_email,
                 "date" : meetup.date,
@@ -107,7 +107,7 @@ def edit_form(request,meetup_slug):
 
     except Exception as e:
         print(f'Erro encontrado: {e}')
-        return render(request,'meetups/index.html')
+        return render(request,'meetups/edit-success.html',context)
 
 
 
