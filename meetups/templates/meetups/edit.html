@@ -1,0 +1,30 @@
+{% extends 'meetups/base/base.html' %}
+
+{% load static %}
+
+{% block title %}Edit Meetup{% endblock %}
+
+{% block site_css %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'meetups/styles/meetup-edit.css'%}">
+
+{% endblock %}
+
+
+{% block body %}
+
+	<article>
+		<img id="main-image" src="{{ meetup.image.url }}" alt="meetup.title">
+
+		<section id="registration">
+			<form action="{% url 'edit-form' meetup.slug %}" method="POST">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<div id="registration-actions">
+					<button>Register</button>
+				</div>
+			</form>
+		</section>
+	</article>
+
+{% endblock %}

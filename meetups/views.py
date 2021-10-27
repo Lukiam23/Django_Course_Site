@@ -72,3 +72,39 @@ def confirm_registration(request, meetup_slug):
         'organizer_email': meetup.organizer_email
         } )
 
+def edit_form(request,meetup_slug):
+    try:
+        meetup = Meetup.objects.get(slug=meetup_slug)
+        if request.method == 'GET':
+            form = MeetupForm(instance=meetup)
+            return render(request,'meetups/edit.html',{
+                'meetup': meetup,
+                'form': form,
+                })
+        elif request.method == 'POST':
+            form = MeetupForm(request.POST, instance=meetup)
+            
+            if(form.is_valid()):
+                meetup = form.save(commit=False)
+                meetup.title = form.cleaned_data['title']
+                meetup.description = form.cleaned_data['description']
+                meetup.organizer_email = form.cleaned_data['organizer_email']
+                meetup.date = form.cleaned_data['date']
+                meetup.image = form.cleaned_data['image']
+                print(meetup.image)
+                meetup.location = form.cleaned_data['location']
+                meetup.participants.set(form.cleaned_data['participants'])
+                meetup.save()
+                return render(request,'meetups/edit-success.html',{
+                    'success': True,
+                    })
+        else:
+            return render(request,'meetups/edit-success.html',{
+                    'success': False,
+                    })
+    except Exception as e:
+        print(f'Erro encontrado: {e}')
+        return render(request,'meetups/index.html')
+
+
+

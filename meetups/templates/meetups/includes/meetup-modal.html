@@ -4,7 +4,9 @@
 		<form action="{% url 'all-meetups' %}" method="POST" enctype="multipart/form-data">
 			{% csrf_token %}
 			{{ form.as_p }}
-			<input type="submit" value="Register">
+			<div id="registration-actions">
+				<button>Register</button>
+			</div>
 		</form>
 	</div>
 </div>
