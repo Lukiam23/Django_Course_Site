@@ -4,7 +4,7 @@ from django.contrib import messages
 
 
 from .models import Meetup, Participant
-from .form import RegistrationForm, MeetupForm
+from .form import RegistrationForm, MeetupForm, MeetupUpdate
 # Create your views here.
 
 
@@ -49,6 +49,7 @@ def meetup_details(request, meetup_slug):
         if request.method == 'GET':
             registration_form = RegistrationForm()
         else:
+            print("debug check")
             registration_form = RegistrationForm(request.POST)
             if registration_form.is_valid():
                 user_email = registration_form.cleaned_data['email']
@@ -74,34 +75,36 @@ def confirm_registration(request, meetup_slug):
 
 def edit_form(request,meetup_slug):
     try:
+        context = {}
         meetup = Meetup.objects.get(slug=meetup_slug)
+        context['success'] = False
         if request.method == 'GET':
-            form = MeetupForm(instance=meetup)
-            return render(request,'meetups/edit.html',{
-                'meetup': meetup,
-                'form': form,
-                })
-        elif request.method == 'POST':
-            form = MeetupForm(request.POST, instance=meetup)
-            
+            form = MeetupUpdate(instance=meetup)
+            context['meetup'] = meetup,
+            context['form'] = form,
+            return render(request,'meetups/edit.html', context)
+        elif request.method == 'POST':                                               
+            form = MeetupUpdate(request.POST, request.FILES, instance=meetup)
             if(form.is_valid()):
-                meetup = form.save(commit=False)
-                meetup.title = form.cleaned_data['title']
-                meetup.description = form.cleaned_data['description']
-                meetup.organizer_email = form.cleaned_data['organizer_email']
-                meetup.date = form.cleaned_data['date']
-                meetup.image = form.cleaned_data['image']
-                print(meetup.image)
-                meetup.location = form.cleaned_data['location']
-                meetup.participants.set(form.cleaned_data['participants'])
-                meetup.save()
-                return render(request,'meetups/edit-success.html',{
-                    'success': True,
-                    })
-        else:
-            return render(request,'meetups/edit-success.html',{
-                    'success': False,
-                    })
+                obj = form.save(commit=False)
+                obj.save()
+                context['success'] = True
+                meetup = obj
+
+        form = MeetupUpdate(
+            initial = {
+                "title" : meetup.title,
+                "description" : meetup.description,
+                "organizer_email" : meetup.organizer_email,
+                "date" : meetup.date,
+                "image" : meetup.image,
+                "location" : meetup.location,
+                "participants" : meetup.participants,
+
+            })
+        context['form'] = form
+        return render(request,'meetups/edit-success.html',context)
+
     except Exception as e:
         print(f'Erro encontrado: {e}')
         return render(request,'meetups/index.html')
