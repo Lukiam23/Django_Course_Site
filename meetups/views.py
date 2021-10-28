@@ -109,5 +109,13 @@ def edit_form(request,meetup_slug):
         print(f'Erro encontrado: {e}')
         return render(request,'meetups/edit-success.html',context)
 
+def delete(request, meetup_slug):
+    meetup = Meetup.objects.get(slug=meetup_slug)
+    meetup.delete()
+    return redirect('all-meetups')
+
+
+
+
 
 

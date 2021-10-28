@@ -1,6 +1,6 @@
 <li class="meetup-item">
     <article>
-        <span class="close">&times;</span>
+        <a class="close" href="{% url 'delete' slug %}">&times;</a>
         <div class="meetup-summary">
             <div class="meetup-image">
                 <img src="{{ image }}" alt="{{ title }}">
