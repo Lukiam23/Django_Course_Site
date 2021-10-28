@@ -3,7 +3,7 @@
 > Status: Developing
 
 
-### This repository is dedicated to the study of the Django framework. The main code is from the course of Django from <a href="https://www.youtube.com/watch?v=t7DrJqcUviA&list=PLzsAIfynJhXHvyjxUoNNkHyzEMn3vwqw_&index=2">Academind</a>, but some features are going to be added, it was used idea to build a web application where it's possible to list the meetups that a person has and see its description.  
+### This repository is dedicated to the study of the Django framework. The main code is from the course of Django from <a href="https://www.youtube.com/watch?v=t7DrJqcUviA&list=PLzsAIfynJhXHvyjxUoNNkHyzEMn3vwqw_&index=2">Academind</a>, but some features are going to be added, it was used idea to build a web application where it's possible to list the meetups that a person has and see its description.  (<a href="https://django-meetup-heroku.herokuapp.com/meetups/">See the web application</a> )
 
 
 ## The models of the project are:
@@ -44,6 +44,8 @@
     <td>Python</td>
     <td>HTML</td>
     <td>CSS</td>
+    <td>JavaScript</td>
+    <td>Bootstrap</td>
   </tr>
   
   <tr>
@@ -51,6 +53,8 @@
     <td>3.9.7</td>
     <td>5</td>
     <td>3</td>
+    <td>1.5</td>
+    <td>5.1.3</td>
   </tr>
 </table>
 
